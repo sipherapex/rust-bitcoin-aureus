@@ -247,29 +247,28 @@ impl KnownHrp {
         }
     }
 
-    /// Constructs a new [`KnownHrp`] from a [`bech32::Hrp`].
     fn from_hrp(hrp: Hrp) -> Result<Self, UnknownHrpError> {
-        if hrp == bech32::hrp::BC {
+        
+        if hrp.as_str() == "aur" { 
             Ok(Self::Mainnet)
         } else if hrp.is_valid_on_testnet() || hrp.is_valid_on_signet() {
             Ok(Self::Testnets)
-        } else if hrp == bech32::hrp::BCRT {
+        } else if hrp.as_str() == "raur" { 
             Ok(Self::Regtest)
         } else {
             Err(UnknownHrpError(hrp.to_lowercase()))
         }
     }
 
-    /// Converts, infallibly a known HRP to a [`bech32::Hrp`].
     fn to_hrp(self) -> Hrp {
         match self {
-            Self::Mainnet => bech32::hrp::BC,
-            Self::Testnets => bech32::hrp::TB,
-            Self::Regtest => bech32::hrp::BCRT,
+            
+            Self::Mainnet => Hrp::parse("aur").expect("valid hrp"),
+            Self::Testnets => Hrp::parse("taur").expect("valid hrp"),
+            Self::Regtest => Hrp::parse("raur").expect("valid hrp"),
         }
     }
 }
-
 impl From<Network> for KnownHrp {
     fn from(n: Network) -> Self { Self::from_network(n) }
 }

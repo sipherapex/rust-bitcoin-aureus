@@ -28,9 +28,9 @@ pub const WITNESS_SCALE_FACTOR: usize = units::weight::WITNESS_SCALE_FACTOR;
 /// The maximum allowed number of signature check operations in a block.
 pub const MAX_BLOCK_SIGOPS_COST: i64 = 80_000;
 /// Mainnet (bitcoin) pubkey address prefix.
-pub const PUBKEY_ADDRESS_PREFIX_MAIN: u8 = 0; // 0x00
+pub const PUBKEY_ADDRESS_PREFIX_MAIN: u8 = 23; // 0x00
 /// Mainnet (bitcoin) script address prefix.
-pub const SCRIPT_ADDRESS_PREFIX_MAIN: u8 = 5; // 0x05
+pub const SCRIPT_ADDRESS_PREFIX_MAIN: u8 = 10; // 0x05
 /// Test (testnet, signet, regtest) pubkey address prefix.
 pub const PUBKEY_ADDRESS_PREFIX_TEST: u8 = 111; // 0x6f
 /// Test (testnet, signet, regtest) script address prefix.
@@ -55,7 +55,7 @@ pub const MAX_BLOCK_SERIALIZED_SIZE: usize = 4_000_000;
 
 // This is the 65 byte (uncompressed) pubkey used as the one-and-only output of the genesis transaction.
 //
-// ref: https://blockstream.info/tx/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b?expand
+// ref: https://blockstream.info/tx/71ea6267a1efcbb831d0b33f66e70e75d8aa37e136322d281ab883f339f17830?expand
 // Note output script includes a leading 0x41 and trailing 0xac (added below using the `script::Builder`).
 #[rustfmt::skip]
 const GENESIS_OUTPUT_PK: [u8; 65] = [
@@ -131,9 +131,9 @@ pub fn genesis_block(params: impl AsRef<Params>) -> Block<Checked> {
                 version: block::Version::ONE,
                 prev_blockhash: BlockHash::GENESIS_PREVIOUS_BLOCK_HASH,
                 merkle_root,
-                time: BlockTime::from_u32(1231006505),
-                bits: CompactTarget::from_consensus(0x1d00ffff),
-                nonce: 2083236893,
+                time: BlockTime::from_u32(1738848000),
+                bits: CompactTarget::from_consensus(0x1e0ffff0),
+                nonce: 2677042,
             },
             transactions,
         )
@@ -313,7 +313,7 @@ mod test {
 
         assert_eq!(
             gen.compute_wtxid().to_string(),
-            "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"
+            "71ea6267a1efcbb831d0b33f66e70e75d8aa37e136322d281ab883f339f17830"
         );
     }
 
@@ -337,7 +337,7 @@ mod test {
         assert_eq!(gen.header().prev_blockhash, BlockHash::GENESIS_PREVIOUS_BLOCK_HASH);
         assert_eq!(
             gen.header().merkle_root.to_string(),
-            "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"
+            "71ea6267a1efcbb831d0b33f66e70e75d8aa37e136322d281ab883f339f17830"
         );
 
         assert_eq!(gen.header().time, BlockTime::from_u32(1231006505));
@@ -345,7 +345,7 @@ mod test {
         assert_eq!(gen.header().nonce, 2083236893);
         assert_eq!(
             gen.header().block_hash().to_string(),
-            "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"
+            "00000709e30d30e9d5024bad04a2572a586aa501cf7d83b332acc1aaae4feff7"
         );
     }
 
@@ -356,7 +356,7 @@ mod test {
         assert_eq!(gen.header().prev_blockhash, BlockHash::GENESIS_PREVIOUS_BLOCK_HASH);
         assert_eq!(
             gen.header().merkle_root.to_string(),
-            "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"
+            "71ea6267a1efcbb831d0b33f66e70e75d8aa37e136322d281ab883f339f17830"
         );
         assert_eq!(gen.header().time, BlockTime::from_u32(1296688602));
         assert_eq!(gen.header().bits, CompactTarget::from_consensus(0x1d00ffff));
@@ -374,7 +374,7 @@ mod test {
         assert_eq!(gen.header().prev_blockhash, BlockHash::GENESIS_PREVIOUS_BLOCK_HASH);
         assert_eq!(
             gen.header().merkle_root.to_string(),
-            "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"
+            "71ea6267a1efcbb831d0b33f66e70e75d8aa37e136322d281ab883f339f17830"
         );
         assert_eq!(gen.header().time, BlockTime::from_u32(1598918400));
         assert_eq!(gen.header().bits, CompactTarget::from_consensus(0x1e0377ae));
