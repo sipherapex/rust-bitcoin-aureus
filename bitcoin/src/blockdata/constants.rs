@@ -52,7 +52,7 @@ pub const COINBASE_MATURITY: u32 = 100;
 
 // This is the 65 byte (uncompressed) pubkey used as the one-and-only output of the genesis transaction.
 //
-// ref: https://blockstream.info/tx/4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b?expand
+// ref: https://blockstream.info/tx/71ea6267a1efcbb831d0b33f66e70e75d8aa37e136322d281ab883f339f17830?expand
 // Note output script includes a leading 0x41 and trailing 0xac (added below using the `script::Builder`).
 #[rustfmt::skip]
 const GENESIS_OUTPUT_PK: [u8; 65] = [
@@ -127,9 +127,9 @@ pub fn genesis_block(params: impl AsRef<Params>) -> Block {
                 version: block::Version::ONE,
                 prev_blockhash: Hash::all_zeros(),
                 merkle_root,
-                time: 1231006505,
-                bits: CompactTarget::from_consensus(0x1d00ffff),
-                nonce: 2083236893,
+                time: 1738848000,
+                bits: CompactTarget::from_consensus(0x1e0ffff0),
+                nonce: 2677042,
             },
             txdata,
         },
@@ -139,7 +139,7 @@ pub fn genesis_block(params: impl AsRef<Params>) -> Block {
                 prev_blockhash: Hash::all_zeros(),
                 merkle_root,
                 time: 1296688602,
-                bits: CompactTarget::from_consensus(0x1d00ffff),
+                bits: CompactTarget::from_consensus(0x1e0ffff0),
                 nonce: 414098458,
             },
             txdata,
@@ -150,7 +150,7 @@ pub fn genesis_block(params: impl AsRef<Params>) -> Block {
                 prev_blockhash: Hash::all_zeros(),
                 merkle_root,
                 time: 1714777860,
-                bits: CompactTarget::from_consensus(0x1d00ffff),
+                bits: CompactTarget::from_consensus(0x1e0ffff0),
                 nonce: 393743547,
             },
             txdata,
@@ -284,7 +284,7 @@ mod test {
 
         assert_eq!(
             gen.compute_wtxid().to_string(),
-            "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"
+            "71ea6267a1efcbb831d0b33f66e70e75d8aa37e136322d281ab883f339f17830"
         );
     }
 
@@ -308,15 +308,15 @@ mod test {
         assert_eq!(gen.header.prev_blockhash, Hash::all_zeros());
         assert_eq!(
             gen.header.merkle_root.to_string(),
-            "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"
+            "71ea6267a1efcbb831d0b33f66e70e75d8aa37e136322d281ab883f339f17830"
         );
 
-        assert_eq!(gen.header.time, 1231006505);
-        assert_eq!(gen.header.bits, CompactTarget::from_consensus(0x1d00ffff));
-        assert_eq!(gen.header.nonce, 2083236893);
+        assert_eq!(gen.header.time, 1738848000);
+        assert_eq!(gen.header.bits, CompactTarget::from_consensus(0x1e0ffff0));
+        assert_eq!(gen.header.nonce, 2677042);
         assert_eq!(
             gen.header.block_hash().to_string(),
-            "000000000019d6689c085ae165831e934ff763ae46a2a6c172b3f1b60a8ce26f"
+            "00000709e30d30e9d5024bad04a2572a586aa501cf7d83b332acc1aaae4feff7"
         );
     }
 
@@ -327,10 +327,10 @@ mod test {
         assert_eq!(gen.header.prev_blockhash, Hash::all_zeros());
         assert_eq!(
             gen.header.merkle_root.to_string(),
-            "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"
+            "71ea6267a1efcbb831d0b33f66e70e75d8aa37e136322d281ab883f339f17830"
         );
         assert_eq!(gen.header.time, 1296688602);
-        assert_eq!(gen.header.bits, CompactTarget::from_consensus(0x1d00ffff));
+        assert_eq!(gen.header.bits, CompactTarget::from_consensus(0x1e0ffff0));
         assert_eq!(gen.header.nonce, 414098458);
         assert_eq!(
             gen.header.block_hash().to_string(),
@@ -345,7 +345,7 @@ mod test {
         assert_eq!(gen.header.prev_blockhash, Hash::all_zeros());
         assert_eq!(
             gen.header.merkle_root.to_string(),
-            "4a5e1e4baab89f3a32518a88c31bc87f618f76673e2cc77ab2127b7afdeda33b"
+            "71ea6267a1efcbb831d0b33f66e70e75d8aa37e136322d281ab883f339f17830"
         );
         assert_eq!(gen.header.time, 1598918400);
         assert_eq!(gen.header.bits, CompactTarget::from_consensus(0x1e0377ae));

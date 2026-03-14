@@ -199,44 +199,43 @@ pub enum KnownHrp {
     /// The regtest network.
     Regtest,
 }
-
-impl KnownHrp {
-    /// Creates a `KnownHrp` from `network`.
-    fn from_network(network: Network) -> Self {
-        use Network::*;
-
-        match network {
-            Bitcoin => Self::Mainnet,
-            Testnet | Testnet4 | Signet => Self::Testnets,
-            Regtest => Self::Regtest,
-        }
-    }
-
-    /// Creates a `KnownHrp` from a [`bech32::Hrp`].
+    
+    impl KnownHrp {
     fn from_hrp(hrp: Hrp) -> Result<Self, UnknownHrpError> {
-        if hrp == bech32::hrp::BC {
+        if hrp.as_str() == "aur" {
             Ok(Self::Mainnet)
         } else if hrp.is_valid_on_testnet() || hrp.is_valid_on_signet() {
             Ok(Self::Testnets)
-        } else if hrp == bech32::hrp::BCRT {
+        } else if hrp.as_str() == "raur" {
             Ok(Self::Regtest)
         } else {
             Err(UnknownHrpError(hrp.to_lowercase()))
         }
     }
 
-    /// Converts, infallibly a known HRP to a [`bech32::Hrp`].
     fn to_hrp(self) -> Hrp {
         match self {
-            Self::Mainnet => bech32::hrp::BC,
-            Self::Testnets => bech32::hrp::TB,
-            Self::Regtest => bech32::hrp::BCRT,
+            Self::Mainnet => Hrp::parse("aur").expect("valid hrp"),
+            Self::Testnets => Hrp::parse("taur").expect("valid hrp"),
+            Self::Regtest => Hrp::parse("raur").expect("valid hrp"),
+        }
+    }
+
+    pub fn from_network(n: Network) -> Self {
+        match n {
+            Network::Bitcoin => Self::Mainnet,
+            Network::Testnet | Network::Signet => Self::Testnets,
+            Network::Regtest => Self::Regtest,
+            _ => Self::Mainnet, // 
         }
     }
 }
 
+// أضف هذا الجزء أيضاً لأنه مطلوب في السطر 224 كما ظهر في الخطأ
 impl From<Network> for KnownHrp {
-    fn from(n: Network) -> Self { Self::from_network(n) }
+    fn from(n: Network) -> Self {
+        Self::from_network(n)
+    }
 }
 
 /// The data encoded by an `Address`.
