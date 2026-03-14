@@ -94,7 +94,7 @@ impl Params {
         max_attainable_target: Target::MAX_ATTAINABLE_MAINNET,
         pow_target_spacing: 10 * 60,            // 10 minutes.
         pow_target_timespan: 14 * 24 * 60 * 60, // 2 weeks.
-        allow_min_difficulty_blocks: false,
+        allow_min_difficulty_blocks: true,
         no_pow_retargeting: false,
     };
 
@@ -102,10 +102,10 @@ impl Params {
     #[deprecated(since = "0.32.4", note = "Use TESTNET3 instead")]
     pub const TESTNET: Params = Params {
         network: Network::Testnet,
-        bip16_time: 1333238400,                 // Apr 1 2012
-        bip34_height: 21111, // 0000000023b3a96d3484e5abb3755c413e7d41500f8e2a5c3f0dd01299cd8ef8
-        bip65_height: 581885, // 00000000007f6655f22f98e72ed80d8b06dc761d5da09df0fa1dc4be4f861eb6
-        bip66_height: 330776, // 000000002104c8c45e99a8853285a3b592602a3ccde2b832481da85e9e4ba182
+        bip16_time: 0,                 // Apr 1 2012
+        bip34_height: 1, // 0000000023b3a96d3484e5abb3755c413e7d41500f8e2a5c3f0dd01299cd8ef8
+        bip65_height: 1, // 00000000007f6655f22f98e72ed80d8b06dc761d5da09df0fa1dc4be4f861eb6
+        bip66_height: 1, // 000000002104c8c45e99a8853285a3b592602a3ccde2b832481da85e9e4ba182
         rule_change_activation_threshold: 1512, // 75%
         miner_confirmation_window: 2016,
         pow_limit: Target::MAX_ATTAINABLE_TESTNET,
