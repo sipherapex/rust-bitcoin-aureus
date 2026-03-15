@@ -248,12 +248,11 @@ impl KnownHrp {
     }
 
     fn from_hrp(hrp: Hrp) -> Result<Self, UnknownHrpError> {
-        
-        if hrp.as_str() == "aur" { 
+        if hrp.as_str() == "aur" {
             Ok(Self::Mainnet)
         } else if hrp.is_valid_on_testnet() || hrp.is_valid_on_signet() {
             Ok(Self::Testnets)
-        } else if hrp.as_str() == "raur" { 
+        } else if hrp.as_str() == "raur" {
             Ok(Self::Regtest)
         } else {
             Err(UnknownHrpError(hrp.to_lowercase()))
@@ -262,7 +261,6 @@ impl KnownHrp {
 
     fn to_hrp(self) -> Hrp {
         match self {
-            
             Self::Mainnet => Hrp::parse("aur").expect("valid hrp"),
             Self::Testnets => Hrp::parse("taur").expect("valid hrp"),
             Self::Regtest => Hrp::parse("raur").expect("valid hrp"),
